@@ -38,23 +38,28 @@ PYNQ-Z1 setup
 
 To set up the board:
 
-   1. Change the *boot* jumper to **SD** (Set the board to boot from the Micro-SD card)  
+   1. Make sure the *boot* jumper to **SD** (Set the board to boot from the Micro-SD card)  
    
-   2. Insert the **Micro SD** card loaded with the PYNQ-Z1 image into the board. (The Micro SD slot is underneath the board)
+   2. Make sure the *power* jumper is set to **USB** if you are powering from a USB cable. (Set to **REG** if using a power adapter)
    
-   3. Connect the USB cable to your PC/Laptop, and to the **PROG/UART** (J14) on the board
+   3. Insert the **Micro SD** card loaded with the PYNQ-Z1 image into the board. (The Micro SD slot is underneath the board)
    
-   4. Connect the Ethernet cable into your board, and directly to your computer or to a router/network switch that your computer is connected to.    
+   4. Connect the USB cable to your PC/Laptop, and to the **PROG/UART** (J14) on the board
    
-   5. **Turn on** the power switch on the board
+   5. Connect the Ethernet cable into your board, and directly to your computer or to a router/network switch that your computer is connected to.    
+   
+   6. **Turn on** the power switch on the board
 
-   When you power on the board, you should see a *Red LED* indicating that the board is powered. After a few seconds, you should see a *Green LED* (LD12/DONE), indicating a bitstream has been downloaded to the programmable logic. This is also a good indication that the boot process has started correctly. After about 30 seconds the board should finish booting. You should see all the LEDs flash, and the yellow LEDs will remain on. You can then connect to the board from your browser. 
+
+   When you power on the board, you should see a *Red LED* indicating that the board is powered. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE), indicating a bitstream has been downloaded to the programmable logic. This is also a good indication that the boot process has started correctly. 
+   
+After about 30 seconds the board should finish booting. You should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. You can then connect to the board from your browser. 
    
    
 Connect to the board
 ==================================   
 
-You need to make sure your board can connect to your computer or network correctly. You will need to know the hostname or the IP address of the board. By default, if the board is connected to a router or network with a DHCP server, it will get an IP address automatically. You can then use the board hostname to connect to it. The default hostname is ``pynq``.
+You need to make sure your board can connect to your computer or network correctly. You will need to know the hostname or the IP address of the board. If the board is connected to a router or network with a DHCP server, it will get an IP address automatically. You can then use the board hostname to connect to it. The default hostname is ``pynq``.
 
 If you connect your board directly to the Ethernet port of your PC, the board will automatically assign itself a static IP address (``192.168.2.99`` by default). To allow the board and computer to communicate, you can  manually configure your computer to have an IP address in the same range (e.g. 192.168.2.1). See the  `Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
    
@@ -65,13 +70,15 @@ Two scripts are available if you need help configuring the Ethernet on a Windows
 Open a web browser and connect to Pynq Jupyter Notebooks web portal
 ---------------------------------------------------------------------------
 
-If the board is connected to your network, the board should get a DHCP (dynamic) IP address.
+If the board is connected to your network (e.g. through a switch or router), the board should get a DHCP (dynamic) IP address from your network.
 
    * Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ 
 
 If the board is connected directly to your laptop/PC Ethernet port, the board will have a static IP (192.168.2.99) by default. 
 
    * Configure your Ethernet adapter IP address to be in the same range as the board (e.g.  192.168.2.1), open a web browser and  go to `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ 
+
+You may need to reboot your computer.
 
 The default hostname of the board is **pynq** and the default static IP address is ``192.168.2.99``. If you changed the hostname or static IP, you will need to change the address above to match your hostname. 
    
