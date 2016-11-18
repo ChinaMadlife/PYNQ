@@ -13,7 +13,7 @@ Getting Started
       :align: center
 	  
 	  
-Setup
+Setup the board
 ================
 
 Prerequisites
@@ -29,21 +29,20 @@ Prerequisites
 Get the image and prepare the micro-SD Card
 ----------------------------------------------------
 
-If you already have a Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. Preloaded Micro SD cards area available from Digilent when you purchase the board. 
+Preloaded Micro SD cards are available from Digilent. If you already have one of these Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. To make your own:
 
-* `Download the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_, unzip/extract, and write the image to an SD card. 
+* `Download the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_, unzip/extract, and write the image to an Micro SD card (minimum 8GB recommended). 
 
 On Windows `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_ can be used to write the image. On Linux/MacOS: *dd* can be used.   
 For detailed instructions for writing the SD card using different operating systems, see the `Appendix: Writing the SD card image <17_appendix.rst#writing-the-sd-card-image>`_. 
    
-PYNQ-Z1 setup
----------------
+Setup the PYNQ-Z1 
+------------------
 
 
    .. image:: ./images/pynqz1_setup.jpg
       :align: center
 
-To set up the board:
 
    1. Set the *boot* jumper (labelled JP4 on the board) is set to **SD** (This sets the board to boot from the Micro-SD card)  
    
@@ -58,21 +57,24 @@ To set up the board:
 You will use a computer with a web browser to connect to and program the board. You can connect your PYNQ-Z1 board to an Ethernet port on your home router, an Ethenet port or cable on your work network, or directly to your computer. You need to make sure you have permission to connect devices to your work network, and that there is a DHCP server running that will assign an IP address to an unknown device. A home router is usually the easiest way to start using PYNQ. 
 
 
-+---------------+--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-|	            |Home router (DHCP)	                                     |Work Network (DHCP)                                     |Direct Connection (Static IP)                       |
-+===============+========================================================+========================================================+========================================================+
-|               |Connect board to Ethernet port on your router           |Connect board to Ethernet port or cable on your network |Connect directly to ethernet port on your computer      |
-+---------------+--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-|           	|		                                                 |                                                        |`Configure your computer ethernet adapter with Static IP<17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_|
-+---------------+--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-|Address        |http://pynq:9090                                        |http://pynq:9090                                        |http://192.168.2.99:9090                                |
-+---------------+--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-|*Optional steps|Change hostname if multiple pynq boards are on network  |Change hostname if multiple pynq boards are on network  |Bridge Network connection                               |
-+See below      +--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-|               |Enable WAN link to LAN on your router                   |Configure proxy                                         |                                                        |
-+---------------+--------------------------------------------------------+--------------------------------------------------------+--------------------------------------------------------+
-	     
-   7. **Turn on** the power switch on the board
+
++---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+|               |Home router (DHCP)	                                     |Work Network (DHCP)                                     |Direct Connection (Static IP)                            |
++===============+========================================================+========================================================+=========================================================+
+|               |Connect board to Ethernet port on your router           |Connect board to Ethernet port or cable on your network |Connect directly to ethernet port on your computer       |
++---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+|               |                                                        |                                                        |\*Configure your computer ethernet adapter with Static IP|
++---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+|Address        |http://pynq:9090                                        |http://pynq:9090                                        |http://192.168.2.99:9090                                 |
++---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+|\*Optional step|Change hostname if multiple pynq boards are on network  |Change hostname if multiple pynq boards are on network  |                                                         |
++See below      +--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+|               |                                                        |Configure proxy                                         |                                                         |
++---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
+
+
+
+**Turn on** the power switch on the board
 
 When you power on the board, you should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). This is also a good indication that the boot process has started correctly. 
    
@@ -82,9 +84,9 @@ After about 30 seconds the board should finish booting. You should see the two c
 Connect to the board
 ==================================   
 
-If you connect your board to your home router, or network, it should get an IP address from a DHCP server. The network will also resolve the board hostname ("pynq") to the IP address. You can use either the hostname, or IP to connect to the board. 
+If you connected your board to your home router, or network, it should get an IP address from a DHCP server. The network will also resolve the board hostname ("pynq") to the IP address. You can use the hostname to connect to the board. 
  
-If you connect directly to the Ethernet port of your PC, the board will automatically assign itself a static IP address (``192.168.2.99`` by default). You will need to configure your computer's Ethernet adapter to have an IP address in the same range (e.g. 192.168.2.1). 
+If you connect directly to the Ethernet port of your PC, the board will automatically assign itself a static IP address (``192.168.2.99`` by default). You will need to `Configure your computer ethernet adapter with Static IP addess<17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_ in the same range (e.g. 192.168.2.1). 
    
    
 Open a web browser and connect to Pynq Jupyter Notebooks web portal
@@ -109,6 +111,7 @@ It may take a few seconds for your computer to resolve the hostname/IP address.
 Change hostname
 =========================
 If you are on a network where there may be other *pynq* boards, you should change your hostname immediately. Open a terminal from the browser in the Jupyter portal. To do this, select New > Notebook. Select New terminal, which will open a terminal inside the browser as root. 
+
    .. image:: ./images/dashboard_files_tab_new.JPG
       :height: 300px
       :align: center
@@ -135,7 +138,7 @@ When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc
 Configure proxy
 ========================
 
-If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board
+If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
 
    .. code-block:: console
    
@@ -147,7 +150,7 @@ Troubleshooting
 
 Connect to terminal
 ---------------
-If you need to change the hostname
+If you need to change settings on the board but you can't access the terminal from Jupyter, you can use connect a terminal using the micro USB cable already connected to the board. 
 
 To connect to the board using a terminal, you will use the Micro USB cable which should already be connected. You will need to install/use a terminal emulator to connect to the board. (puTTY <http://www.putty.org/>`_ is free for Windows) 
 
@@ -159,13 +162,20 @@ To connect to the board using a terminal, you will use the Micro USB cable which
    * No Parity
    * No Flow Control
 
-You can also ssh to the board ("ssh xilinx@pynq", password is xilinx)
+You can then run the same commands listed above to change the hostname, or configure a proxy. 
 
+You can also check the hostname of the board by running the *hostname* command:
+
+   .. code-block:: console
    
+      hostname
+	  
+You can also check the IP address of the board using *ifconfig*:
 
-You should now be ready to start using Pynq. You can continue reading this documentation, or try using Pynq on the board. 
-
-
+   .. code-block:: console
+   
+      ifconfig
+	  
 Using Pynq
 ==========================
 
