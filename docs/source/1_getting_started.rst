@@ -77,10 +77,9 @@ You can connect your PYNQ-Z1 board to an Ethernet port on your home router, your
 | (DHCP)                     | (Static IP)              |
 +============================+==========================+
 | Connect to port on         | Connect directly to your |
-| router/switch              | computer                 |
-+----------------------------+--------------------------+
-|                            | Configure your computer  |
-|                            | with Static IP           |
+| router/switch              | computer and configure   |
+|                            | your computer with a     |
+|                            | Static IP                |
 +----------------------------+--------------------------+
 | http://pynq:9090           | http://192.168.2.99:9090 |
 +----------------------------+--------------------------+
