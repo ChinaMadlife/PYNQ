@@ -9,7 +9,7 @@ Getting Started
 .. contents:: Table of Contents
    :depth: 2
 
-      .. image:: ./images/pynqz1_quick_start.jpg
+   .. image:: ./images/pynqz1_quick_start.jpg
       :align: center
 	  
 	  
@@ -74,16 +74,16 @@ You will use a computer with a web browser to connect to and program the board. 
 
 
 
-=============  ========================================================  ======================================================  ========================================================
-               Home router (DHCP)	                                     Work Network (DHCP)                                     Direct Connection (Static IP)                            
-=============  ========================================================  ======================================================  ========================================================
-               Connect board to Ethernet port on your router             Connect board to Ethernet port or cable on your network Connect directly to ethernet port on your computer       
-                                                                                                                                 Configure your computer ethernet adapter with Static IP  
-Address        http://pynq:9090                                          http://pynq:9090                                        http://192.168.2.99:9090                                 
-Optional steps Change hostname if multiple pynq boards are on network    Change hostname if multiple pynq boards are on network                                                           
+================  ========================================================  ========================================================  ========================================================
+                  Home router (DHCP)                                        Work Network (DHCP)                                       Direct Connection (Static IP)                            
+================  ========================================================  ========================================================  ========================================================
+                  Connect board to Ethernet port on your router             Connect board to Ethernet port or cable on your network   Connect directly to ethernet port on your computer       
+                                                                                                                                      Configure your computer ethernet adapter with Static IP  
+Address           http://pynq:9090                                          http://pynq:9090                                          http://192.168.2.99:9090                                 
+Optional steps    Change hostname if multiple pynq boards are on network    Change hostname if multiple pynq boards are on network                                                           
 See below      
-                                                                         Configure proxy                                                                                                  
-=============  ========================================================  ======================================================  ========================================================
+                                                                            Configure proxy                                                                                                  
+================  ========================================================  ========================================================  ========================================================
 
 
 
