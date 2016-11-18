@@ -74,6 +74,22 @@ You will use a computer with a web browser to connect to and program the board. 
 
 
 
+=============  ========================================================  ======================================================  ========================================================
+               Home router (DHCP)	                                     Work Network (DHCP)                                     Direct Connection (Static IP)                            
+=============  ========================================================  ======================================================  ========================================================
+               Connect board to Ethernet port on your router             Connect board to Ethernet port or cable on your network Connect directly to ethernet port on your computer       
+                                                                                                                                 Configure your computer ethernet adapter with Static IP  
+Address        http://pynq:9090                                          http://pynq:9090                                        http://192.168.2.99:9090                                 
+Optional steps Change hostname if multiple pynq boards are on network    Change hostname if multiple pynq boards are on network                                                           
+See below      
+                                                                         Configure proxy                                                                                                  
+=============  ========================================================  ======================================================  ========================================================
+
+
+
+
+
+
 **Turn on** the power switch on the board
 
 When you power on the board, you should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). This is also a good indication that the boot process has started correctly. 
