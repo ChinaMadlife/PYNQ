@@ -31,6 +31,8 @@ Video Guide
 =================
 
 You can watch the getting started video guide, or follow the instructions below.
+
+
 .. raw:: html
 
     <embed>
@@ -99,7 +101,7 @@ After about 30 seconds the board should finish booting. You should see the two c
   
    
 Connect to the board
-==================================   
+----------------------  
 
 If you connected your board to your home router, or network, it should get an IP address from a DHCP server. The network will also resolve the board hostname ("pynq") to the IP address. You can use the hostname to connect to the board. 
  
@@ -126,7 +128,7 @@ The default hostname of the board is **pynq** and the default static IP address 
 It may take a few seconds for your computer to resolve the hostname/IP address. 
    
 Change hostname
-=========================
+----------------------
 If you are on a network where there may be other *pynq* boards, you should change your hostname immediately. Open a terminal from the browser in the Jupyter portal. To do this, select New > Notebook. Select New terminal, which will open a terminal inside the browser as root. 
 
    .. image:: ./images/dashboard_files_tab_new.JPG
@@ -153,7 +155,7 @@ Follow the instructions to reboot the board.
 When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc
 
 Configure proxy
-========================
+--------------------
 
 If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
 
