@@ -26,6 +26,18 @@ Prerequisites
 * Micro USB cable 
 * USB port
 
+
+Video Guide
+=================
+
+.. raw:: html
+
+    <embed>
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/-VE97r5XpEU" frameborder="0" allowfullscreen></iframe>
+    </embed>
+
+
+
 Get the image and prepare the micro-SD Card
 ----------------------------------------------------
 
