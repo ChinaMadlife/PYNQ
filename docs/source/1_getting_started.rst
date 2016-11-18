@@ -54,25 +54,25 @@ Setup the PYNQ-Z1
    
    5. Connect the Ethernet cable into your board
    
-You will use a computer with a web browser to connect to and program the board. You can connect your PYNQ-Z1 board to an Ethernet port on your home router, an Ethenet port or cable on your work network, or directly to your computer. You need to make sure you have permission to connect devices to your work network, and that there is a DHCP server running that will assign an IP address to an unknown device. A home router is usually the easiest way to start using PYNQ. 
+You can connect your PYNQ-Z1 board to an Ethernet port on your home router, your work network, or directly to your computer. You need to make sure you have permission to connect devices to your work network. A home router or direct connection is usually the easiest way to start using PYNQ. 
 
 
-+-------------+--------------------+-------------------+--------------------------+
-|             | Home router        | Work Network      | Direct Connection        |
-|             | (DHCP)             | (DHCP)            | (Static IP)              |
-+=============+====================+===================+==========================+
-| Connect to: | Port on router     | Network port      | Directly to your         |
-|             |                    |                   | computer                 |
-+-------------+--------------------+-------------------+--------------------------+
-|             |                    |                   | Configure your computer  |
-|             |                    |                   | with Static IP           |
-+-------------+--------------------+-------------------+--------------------------+
-| Address:    | http://pynq:9090   | http://pynq:9090  | http://192.168.2.99:9090 |
-+-------------+--------------------+-------------------+--------------------------+
-| Optional:   | Change hostname    | Change hostname   |                          |
-+-------------+--------------------+-------------------+--------------------------+
-|             |                    | Configure proxy   |                          |
-+-------------+--------------------+-------------------+--------------------------+
++-------------+--------------------------+--------------------------+
+|             | Home router/Work Network | Direct Connection        |
+|             | (DHCP)                   | (Static IP)              |
++=============+==========================+==========================+
+| Connect to: | Port on router           | Directly to your         |
+|             |                          | computer                 |
++-------------+--------------------------+--------------------------+
+|             |                          | Configure your computer  |
+|             |                          | with Static IP           |
++-------------+--------------------------+--------------------------+
+| Address:    | http://pynq:9090         | http://192.168.2.99:9090 |
++-------------+--------------------------+--------------------------+
+| Optional:   | Change hostname          |                          |
++-------------+--------------------------+--------------------------+
+|             | Configure proxy          |                          |
++-------------+--------------------------+--------------------------+
 
 
 
