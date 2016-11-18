@@ -63,11 +63,11 @@ You will use a computer with a web browser to connect to and program the board. 
 +===============+========================================================+========================================================+=========================================================+
 |               |Connect board to Ethernet port on your router           |Connect board to Ethernet port or cable on your network |Connect directly to ethernet port on your computer       |
 +---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
-|               |                                                        |                                                        |\*Configure your computer ethernet adapter with Static IP|
+|               |                                                        |                                                        |Configure your computer ethernet adapter with Static IP  |
 +---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
 |Address        |http://pynq:9090                                        |http://pynq:9090                                        |http://192.168.2.99:9090                                 |
 +---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
-|\*Optional step|Change hostname if multiple pynq boards are on network  |Change hostname if multiple pynq boards are on network  |                                                         |
+|Optional steps |Change hostname if multiple pynq boards are on network  |Change hostname if multiple pynq boards are on network  |                                                         |
 +See below      +--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
 |               |                                                        |Configure proxy                                         |                                                         |
 +---------------+--------------------------------------------------------+--------------------------------------------------------+---------------------------------------------------------+
