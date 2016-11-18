@@ -30,6 +30,7 @@ Prerequisites
 Video Guide
 =================
 
+You can watch the getting started video guide, or follow the instructions below.
 .. raw:: html
 
     <embed>
@@ -69,29 +70,30 @@ Setup the PYNQ-Z1
 You can connect your PYNQ-Z1 board to an Ethernet port on your home router, your work network, or directly to your computer. You need to make sure you have permission to connect devices to your work network. A home router or direct connection is usually the easiest way to start using PYNQ. 
 
 
-+-------------+--------------------------+--------------------------+
-|             | Home router/Work Network | Direct Connection        |
-|             | (DHCP)                   | (Static IP)              |
-+=============+==========================+==========================+
-| Connect to: | Port on router           | Directly to your         |
-|             |                          | computer                 |
-+-------------+--------------------------+--------------------------+
-|             |                          | Configure your computer  |
-|             |                          | with Static IP           |
-+-------------+--------------------------+--------------------------+
-| Address:    | http://pynq:9090         | http://192.168.2.99:9090 |
-+-------------+--------------------------+--------------------------+
-| Optional:   | Change hostname          |                          |
-+-------------+--------------------------+--------------------------+
-|             | Configure proxy          |                          |
-+-------------+--------------------------+--------------------------+
++----------------------------+--------------------------+
+| Home router/Work Network   | Direct Connection        |
+| (DHCP)                     | (Static IP)              |
++============================+==========================+
+| Connect to port on         | Connect directly to your |
+| router/switch              | computer                 |
++----------------------------+--------------------------+
+| -                          | Configure your computer  |
+|                            | with Static IP           |
++----------------------------+--------------------------+
+| http://pynq:9090           | http://192.168.2.99:9090 |
++----------------------------+--------------------------+
+| Change hostname (optional) | -                        |
++----------------------------+--------------------------+
+| Configure proxy            | -                        |
+| (work network)             |                          |
++----------------------------+--------------------------+
 
 
 
 
-**Turn on** the power switch on the board
+** the power switch on the board
 
-When you power on the board, you should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). This is also a good indication that the boot process has started correctly. 
+ou power on the board, you should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). This is also a good indication that the boot process has started correctly. 
    
 After about 30 seconds the board should finish booting. You should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. 
   
