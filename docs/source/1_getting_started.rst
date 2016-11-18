@@ -92,21 +92,12 @@ You can connect your PYNQ-Z1 board to an Ethernet port on your home router, your
 
 
 
-** the power switch on the board
-
-ou power on the board, you should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). This is also a good indication that the boot process has started correctly. 
+*Turn On* the power switch on the board to power on the board. You should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). 
    
-After about 30 seconds the board should finish booting. You should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. 
+After about 30 seconds you should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. 
   
    
-Connect to the board
-----------------------  
 
-If you connected your board to your home router, or network, it should get an IP address from a DHCP server. The network will also resolve the board hostname ("pynq") to the IP address. You can use the hostname to connect to the board. 
- 
-If you connect directly to the Ethernet port of your PC, the board will automatically assign itself a static IP address (``192.168.2.99`` by default). You will need to `Configure your computer ethernet adapter with Static IP addess<17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_ in the same range (e.g. 192.168.2.1). 
-   
-   
 Open a web browser and connect to Pynq Jupyter Notebooks web portal
 ---------------------------------------------------------------------------
 
@@ -128,7 +119,11 @@ It may take a few seconds for your computer to resolve the hostname/IP address.
    
 Change hostname
 ----------------------
-If you are on a network where there may be other *pynq* boards, you should change your hostname immediately. Open a terminal from the browser in the Jupyter portal. To do this, select New > Notebook. Select New terminal, which will open a terminal inside the browser as root. 
+If you are on a network where there may be other *pynq* boards, you should change your hostname immediately. E.g. work or university network. 
+
+Open a terminal from the browser in the Jupyter portal by selecting **New > Notebook**. 
+
+Select **New terminal**, which will open a terminal inside the browser as root. 
 
    .. image:: ./images/dashboard_files_tab_new.JPG
       :height: 300px
