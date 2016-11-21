@@ -7,10 +7,6 @@ Getting Started
 
 .. contents:: Table of Contents
    :depth: 2
-
-
-.. image:: ./images/pynqz1_quick_start.jpg
-   :align: center
 	  
 	  
 Video Guide
