@@ -183,25 +183,29 @@ When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc:9
 
 If you can't connect to your board because there is already a board on the network with the hostname 'pynq', see the step below to open a terminal using the micro USB cable. 
 
-Configure proxy
---------------------
-
-If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
-
-   .. code-block:: console
-   
-      set http_proxy=my_http_proxy:8080
-      set https_proxy=my_https_proxy:8080
-
 
 Connect to terminal using USB
 ---------------------------------
 
 If you need to change settings on the board but you can't access the terminal from Jupyter, you can use connect a terminal using the micro USB cable already connected to the board. 
 
-You will need to use a terminal emulator to connect to the board. (puTTY <http://www.putty.org/>`_ is available for free for Windows) 
+You will need to use a terminal emulator to connect to the board. (PuTTY <http://www.putty.org/>`_ is available for free for Windows. You will need to find the COM port for the board. On Windows, you can find this in the device manager under *Ports*. 
 
-   Terminal Settings:
+In PuTTY:
+
+   * Select serial
+   * Enter the COM port number e.g. COM5
+   * Enter the baud rate 
+   * Click *Open*
+
+Hit *Enter* in the terminal window to make sure you can see the command prompt:
+
+   .. code-block:: console
+   
+      xilinnx@pynq:/home/xilinx#
+   
+
+   Full terminal Settings:
 
    * 115200 baud
    * 8 data bits
@@ -222,7 +226,19 @@ You can also check the IP address of the board using *ifconfig*:
    .. code-block:: console
    
       ifconfig
-	  
+
+Configure proxy
+--------------------
+
+If your board is connected to a network that uses a proxy, you need to set the proxy variables on the board. Open a terminal as above and enter the following where you should replace "my_http_proxy:8080" and "my_https_proxy:8080" with your settings.  
+
+   .. code-block:: console
+   
+      set http_proxy=my_http_proxy:8080
+      set https_proxy=my_https_proxy:8080
+
+
+      
 Using PYNQ
 ==========================
 
