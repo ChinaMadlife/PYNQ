@@ -9,7 +9,7 @@ Getting Started
    :depth: 2
 
 
-   .. image:: ./images/pynqz1_quick_start.jpg
+.. image:: ./images/pynqz1_quick_start.jpg
    :align: center
 	  
 	  
@@ -28,18 +28,14 @@ You can watch the getting started video guide, or follow the instructions below.
     </embed>
 
 
-Setup the board
-================
-
 Prerequisites
--------------
+=============
 
 * PYNQ-Z1 board
 * Computer with compatible browser (`Supported Browsers <http://jupyter-notebook.readthedocs.org/en/latest/notebook.html#browser-compatibility>`_)
-* Micro-SD card (Minimum 8GB recommended)
 * Ethernet cable
 * Micro USB cable 
-* USB port
+* Micro-SD card with preloaded image, or blank card (Minimum 8GB recommended)
 
 
 Get the image and prepare the Micro-SD Card
@@ -55,7 +51,7 @@ Preloaded Micro SD cards are available from Digilent. If you already have one of
 For detailed instructions for writing the SD card using different operating systems, see the `Appendix: Writing the SD card image <17_appendix.rst#writing-the-sd-card-image>`_. 
    
 Setup the PYNQ-Z1 
-------------------
+===================
 
 
    .. image:: ./images/pynqz1_setup.jpg
@@ -74,7 +70,7 @@ Setup the PYNQ-Z1
    
 
 Connect to the board
-------------------------------
+------------------------
 
 You can connect your PYNQ-Z1 board in 3 ways:
 
@@ -88,7 +84,7 @@ For a work network, make sure you have permission to connect devices.
 
 
 Connect to a network
-=========================================
+--------------------------
 
 Connecting to a network with internet access allows you to update your board and install new packages. If you are connecting to a work network, you may need to configure proxy settings. If you have more than one board on a network, you will need to change the hostname so that each board has a unique name. 
 
@@ -110,7 +106,8 @@ Connecting to a network with internet access allows you to update your board and
 \* This can be done after the board is powered on. See below for instructions
 
 Connect directly to your computer
-=========================================
+---------------------------------------
+
 You will need to have an Ethernet port available on your computer. This is a simple way to connect to your board. You will be able to use PYNQ, but unless you can bridge the board connection to an internet connection, your board will not have internet access, and you will be unable to update or load new packages.  
 
 +-------------------------------------+
@@ -139,7 +136,7 @@ After about 30 seconds you should see the two color LEDs flash blue, and the fou
   
 
 Connect to Jupyter Notebooks 
-------------------------------
+===============================
 
 * Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ (network) `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ (direct connection)
 * The Jupyter username/password is xilinx/xilinx
@@ -200,7 +197,7 @@ If your board is connected to a network that uses a proxy, you need to set the p
 
 
 Connect to terminal using USB
-=================================
+---------------------------------
 
 If you need to change settings on the board but you can't access the terminal from Jupyter, you can use connect a terminal using the micro USB cable already connected to the board. 
 
