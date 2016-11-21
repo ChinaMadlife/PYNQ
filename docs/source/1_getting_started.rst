@@ -37,12 +37,14 @@ Prerequisites
 Get the image and prepare the Micro-SD Card
 ----------------------------------------------------
 
-Preloaded Micro SD cards are available from Digilent. If you already have one of these Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. To make your own Micro SD card:
+Preloaded Micro SD cards are available from Digilent. If you already have one of these Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. 
 
-* `Download and unnzip the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_
-* Write the image to a blank Micro SD card (minimum 8GB recommended)
-   * Windows: Use `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_
-   * Linux/MacOS: Use the built in *dd* command
+To make your own PYNQ Micro-SD card:
+
+   * `Download and the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_ and upzip
+   * Write the image to a blank Micro SD card (minimum 8GB recommended)
+      * Windows: Use `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_
+      * Linux/MacOS: Use the built in *dd* command
    
 For detailed instructions for writing the SD card using different operating systems, see the `Appendix: Writing the SD card image <17_appendix.rst#writing-the-sd-card-image>`_. 
    
@@ -68,7 +70,7 @@ Setup the PYNQ-Z1
 Connect to the board
 ------------------------
 
-You can connect your PYNQ-Z1 board in 3 ways:
+You can connect your PYNQ-Z1 board in three ways:
 
 1. To a port on your home router
 
@@ -84,20 +86,20 @@ Connect to a network
 
 Connecting to a network with internet access allows you to update your board and install new packages. If you are connecting to a work network, you may need to configure proxy settings. If you have more than one board on a network, you will need to change the hostname so that each board has a unique name. 
 
-+-------------------------------------+
-| Home router/Work Network            |
-| (DHCP)                              |
-+=====================================+
-| Connect to Ethernet port on         |
-| router/switch                       |
-+-------------------------------------+
-| Browse to http://pynq:9090          |
-+-------------------------------------+
-| Optional: Change hostname (if more  |
-| than one board on network)\*        |
-+-------------------------------------+
-| Optional: Configure proxy\*         |
-+-------------------------------------+
++----------------------------------------+
+| Home router/Work Network               |
+| (DHCP)                                 |
++========================================+
+| 1. Connect to Ethernet port on         |
+| router/switch                          |
++----------------------------------------+
+| 2. Browse to http://pynq:9090          |
++----------------------------------------+
+| 3. Optional: Change hostname (if more  |
+| than one board on network)\*           |
++----------------------------------------+
+| 4. Optional: Configure proxy\*         |
++----------------------------------------+
 
 \* This can be done after the board is powered on. See below for instructions
 
@@ -106,21 +108,21 @@ Connect directly to your computer
 
 You will need to have an Ethernet port available on your computer. This is a simple way to connect to your board. You will be able to use PYNQ, but unless you can bridge the board connection to an internet connection, your board will not have internet access, and you will be unable to update or load new packages.  
 
-+-------------------------------------+
-| Direct Connection to your computer  |
-| (Static IP)                         |
-+=====================================+
-| Configure your computer             |
-| with a Static IP\*                  |
-+-------------------------------------+
-| Connect directly to your            |
-| computer's Ethernet port            |
-+-------------------------------------+
-| Browse to                           |
-| http://192.168.2.99:9090            |
-+-------------------------------------+
++-----------------------------------------+
+| Direct Connection to your computer      |
+| (Static IP)                             |
++=========================================+
+| 1. Configure your computer              |
+| with a Static IP\*                      |
++-----------------------------------------+
+| 2. Connect directly to your             |
+| computer's Ethernet port                |
++-----------------------------------------+
+| 3. Browse to                            |
+| http://192.168.2.99:9090                |
++-----------------------------------------+
 
-\* See Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
+\* See `Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
 
 
 Powering on
@@ -177,7 +179,7 @@ Follow the instructions to reboot the board.
    
       sudo shutdown -r now
 	  
-When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc
+When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc:9090
 
 If you can't connect to your board because there is already a board on the network with the hostname 'pynq', see the step below to open a terminal using the micro USB cable. 
 
