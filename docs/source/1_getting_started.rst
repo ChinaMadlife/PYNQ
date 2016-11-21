@@ -1,4 +1,4 @@
-This guide will show you how to setup your compter and PYNQ-Z1 board to get started using PYNQ. 
+This guide will show you how to setup your computer and PYNQ-Z1 board to get started using PYNQ. 
 Any issues can be posted to `the PYNQ support forum <https://groups.google.com/forum/#!forum/pynq_project>`_. 
 
 ***************
@@ -41,7 +41,7 @@ Preloaded Micro SD cards are available from Digilent. If you already have one of
 
 To make your own PYNQ Micro-SD card:
 
-   * `Download and the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_ and upzip
+   * `Download and the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_ and unzip
    * Write the image to a blank Micro SD card (minimum 8GB recommended)
       * Windows: Use `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_
       * Linux/MacOS: Use the built in *dd* command
@@ -122,7 +122,7 @@ You will need to have an Ethernet port available on your computer. This is a sim
 | http://192.168.2.99:9090                |
 +-----------------------------------------+
 
-\* See `Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
+\* See `Appendix: Assign your PC/Laptop a static IP address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
 
 
 Powering on
@@ -133,7 +133,7 @@ Powering on
 After about 30 seconds you should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. 
   
 
-Connect to Jupyter Notebooks 
+Connect to Jupyter  
 ===============================
 
 * Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ (network) `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ (direct connection)
@@ -223,16 +223,16 @@ You can also check the IP address of the board using *ifconfig*:
    
       ifconfig
 	  
-Using Pynq
+Using PYNQ
 ==========================
 
    
 Getting started notebooks
 ----------------------------
 
-Jupyter notebooks can be saved as html webpages. Some of this Pynq documentation has been generated directly from Jupyter notebooks. 
+A Jupyter notebook can be saved as html webpages. Some of this documentation has been generated directly from Jupyter notebooks. 
 
-You can view the documentation as a webpage, or if you have a board running Pynq, you can view and run the notebook documentation interactively. The documentation available as notebooks can be found in the *Getting_Started* folder in the Jupyter home area. 
+You can view the documentation as a webpage, or if you have a board running PYNQ, you can view and run the notebook documentation interactively. The documentation available as notebooks can be found in the *Getting_Started* folder in the Jupyter home area. 
  
 .. image:: ./images/getting_started_notebooks.jpg
    :height: 600px
@@ -253,7 +253,7 @@ Accessing files on the board
 ----------------------------
 `Samba <https://www.samba.org/>`_, a file sharing service, is running on the board. The home area on the board can be accessed as a network drive, and you can transfer files to and from the board. 
 
-In Windows, to access the pynq home area you can go to:
+In Windows, to access the PYNQ home area you can go to:
 
 ``\\pynq\xilinx`` 
 
@@ -282,4 +282,4 @@ The Samba username:password is ``xilinx:xilinx``
 Troubleshooting
 ==========================
 
-If you are having problems getting the board set up, please see the `Frequently asked questions <14_faqs.html>`_ or go the `PYNQ support forum <http://www.pynq.io>`_
+If you are having problems, please see the `Frequently asked questions <14_faqs.html>`_ or go the `PYNQ support forum <http://www.pynq.io>`_
