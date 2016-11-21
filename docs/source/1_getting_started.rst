@@ -1,4 +1,3 @@
-
 This guide will show you how to setup your compter and PYNQ-Z1 board to get started using PYNQ. 
 Any issues can be posted to `the PYNQ support forum <https://groups.google.com/forum/#!forum/pynq_project>`_. 
 
@@ -9,10 +8,26 @@ Getting Started
 .. contents:: Table of Contents
    :depth: 2
 
+
    .. image:: ./images/pynqz1_quick_start.jpg
-      :align: center
+   :align: center
 	  
 	  
+Video Guide
+=================
+
+You can watch the getting started video guide, or follow the instructions below.
+
+
+.. raw:: html
+
+    <embed>
+        <iframe width="300" height="200" src="https://www.youtube.com/embed/-VE97r5XpEU" frameborder="0" allowfullscreen></iframe>
+        </br>
+        </br>
+    </embed>
+
+
 Setup the board
 ================
 
@@ -27,28 +42,16 @@ Prerequisites
 * USB port
 
 
-Video Guide
-=================
-
-You can watch the getting started video guide, or follow the instructions below.
-
-
-.. raw:: html
-
-    <embed>
-        <iframe width="300" height="200" src="https://www.youtube.com/embed/-VE97r5XpEU" frameborder="0" allowfullscreen></iframe>
-    </embed>
-
-
-
-Get the image and prepare the micro-SD Card
+Get the image and prepare the Micro-SD Card
 ----------------------------------------------------
 
-Preloaded Micro SD cards are available from Digilent. If you already have one of these Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. To make your own:
+Preloaded Micro SD cards are available from Digilent. If you already have one of these Micro SD card preloaded with the PYNQ-Z1 image, you can skip this step. To make your own Micro SD card:
 
-* `Download the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_, unzip/extract, and write the image to an Micro SD card (minimum 8GB recommended). 
-
-On Windows `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_ can be used to write the image. On Linux/MacOS: *dd* can be used.   
+* `Download and unnzip the PYNQ-Z1 image <https://files.digilent.com/Products/PYNQ/pynq_z1_image_2016_09_14.zip>`_
+* Write the image to a blank Micro SD card (minimum 8GB recommended)
+   * Windows: Use `win32DiskImager <https://sourceforge.net/projects/win32diskimager/>`_
+   * Linux/MacOS: Use the built in *dd* command
+   
 For detailed instructions for writing the SD card using different operating systems, see the `Appendix: Writing the SD card image <17_appendix.rst#writing-the-sd-card-image>`_. 
    
 Setup the PYNQ-Z1 
@@ -59,52 +62,87 @@ Setup the PYNQ-Z1
       :align: center
 
 
-   1. Set the *boot* jumper (labelled JP4 on the board) is set to **SD** (This sets the board to boot from the Micro-SD card)  
+1. Set the *boot* jumper (labelled JP4 on the board) is set to **SD** (This sets the board to boot from the Micro-SD card)  
    
-   2. Set the *power* jumper (JP5) **USB** if you are powering from a USB cable. (Set to **REG** if using an external power regulator)
+2. Set the *power* jumper (JP5) **USB** if you are powering from a USB cable. (Set to **REG** if using an external power regulator)
    
-   3. Insert the **Micro SD** card loaded with the PYNQ-Z1 image into the board. (The Micro SD slot is underneath the board)
+3. Insert the **Micro SD** card loaded with the PYNQ-Z1 image into the board. (The Micro SD slot is underneath the board)
+  
+4. Connect the USB cable to your PC/Laptop, and to the **PROG/UART** (J14) on the board
    
-   4. Connect the USB cable to your PC/Laptop, and to the **PROG/UART** (J14) on the board
+5. Connect the Ethernet cable into your board
    
-   5. Connect the Ethernet cable into your board
-   
-You can connect your PYNQ-Z1 board to an Ethernet port on your home router, your work network, or directly to your computer. You need to make sure you have permission to connect devices to your work network. A home router or direct connection is usually the easiest way to start using PYNQ. 
+
+Connect to the board
+------------------------------
+
+You can connect your PYNQ-Z1 board in 3 ways:
+
+1. To a port on your home router
+
+2. To a work network 
+
+3. Directly to an Ethernet port on your computer
+
+For a work network, make sure you have permission to connect devices. 
 
 
-+----------------------------+--------------------------+
-| Home router/Work Network   | Direct Connection        |
-| (DHCP)                     | (Static IP)              |
-+============================+==========================+
-| Connect to port on         | Connect directly to your |
-| router/switch              | computer and configure   |
-|                            | your computer with a     |
-|                            | Static IP                |
-+----------------------------+--------------------------+
-| http://pynq:9090           | http://192.168.2.99:9090 |
-+----------------------------+--------------------------+
-| Change hostname (optional) |                          |
-+----------------------------+--------------------------+
-| Configure proxy            |                          |
-| (work network)             |                          |
-+----------------------------+--------------------------+
+Connect to a network
+=========================================
+
+Connecting to a network with internet access allows you to update your board and install new packages. If you are connecting to a work network, you may need to configure proxy settings. If you have more than one board on a network, you will need to change the hostname so that each board has a unique name. 
+
++-------------------------------------+
+| Home router/Work Network            |
+| (DHCP)                              |
++=====================================+
+| Connect to Ethernet port on         |
+| router/switch                       |
++-------------------------------------+
+| Browse to http://pynq:9090          |
++-------------------------------------+
+| Optional: Change hostname (if more  |
+| than one board on network)\*        |
++-------------------------------------+
+| Optional: Configure proxy\*         |
++-------------------------------------+
+
+\* This can be done after the board is powered on. See below for instructions
+
+Connect directly to your computer
+=========================================
+You will need to have an Ethernet port available on your computer. This is a simple way to connect to your board. You will be able to use PYNQ, but unless you can bridge the board connection to an internet connection, your board will not have internet access, and you will be unable to update or load new packages.  
+
++-------------------------------------+
+| Direct Connection to your computer  |
+| (Static IP)                         |
++=====================================+
+| Configure your computer             |
+| with a Static IP\*                  |
++-------------------------------------+
+| Connect directly to your            |
+| computer's Ethernet port            |
++-------------------------------------+
+| Browse to                           |
+| http://192.168.2.99:9090            |
++-------------------------------------+
+
+\* See Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
 
 
-
+Powering on
+--------------
 
 *Turn On* the power switch on the board to power on the board. You should see a *Red LED*. After a few seconds, you should see a *Yellow/Green LED* (LD12/DONE). 
    
 After about 30 seconds you should see the two color LEDs flash blue, and the four yellow/green user LEDs flash and remain on once the system is ready. 
   
-   
 
-Open a web browser and connect to Pynq Jupyter Notebooks web portal
----------------------------------------------------------------------------
+Connect to Jupyter Notebooks 
+------------------------------
 
-If the board is connected to your network:
-
-   * Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ (network) `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ (direct connection)
-   * The Jupyter username/password is xilinx/xilinx
+* Open a web browser and go to `http://pynq:9090 <http://pynq:9090>`_ (network) `http://192.168.2.99:9090 <http://192.168.2.99:9090>`_ (direct connection)
+* The Jupyter username/password is xilinx/xilinx
    
    .. image:: ./images/portal_homepage.jpg
       :height: 600px
@@ -112,13 +150,13 @@ If the board is connected to your network:
       :align: center
 
 
-	  
-The default hostname of the board is **pynq** and the default static IP address is ``192.168.2.99``. If you changed the hostname or static IP of the board, you will need to change the address above to match your hostname. 
+The default hostname is **pynq** and the default static IP address is ``192.168.2.99``. If you changed the hostname or static IP of the board, you will need to change the address you browse to. 
    
-It may take a few seconds for your computer to resolve the hostname/IP address. 
+The first time you connect, it may take a few seconds for your computer to resolve the hostname/IP address. 
    
 Change hostname
 ----------------------
+
 If you are on a network where there may be other *pynq* boards, you should change your hostname immediately. E.g. work or university network. 
 
 Open a terminal from the browser in the Jupyter portal by selecting **New > Notebook**. 
@@ -148,6 +186,8 @@ Follow the instructions to reboot the board.
 	  
 When the board reboots, reconnect using the new hostname. e.g. http://pynq_cmc
 
+If you can't connect to your board because there is already a board on the network with the hostname 'pynq', see the step below to open a terminal using the micro USB cable. 
+
 Configure proxy
 --------------------
 
@@ -158,14 +198,13 @@ If your board is connected to a network that uses a proxy, you need to set the p
       set http_proxy=my_http_proxy:8080
       set https_proxy=my_https_proxy:8080
 
-Troubleshooting
-=========================
 
-Connect to terminal
----------------
+Connect to terminal using USB
+=================================
+
 If you need to change settings on the board but you can't access the terminal from Jupyter, you can use connect a terminal using the micro USB cable already connected to the board. 
 
-To connect to the board using a terminal, you will use the Micro USB cable which should already be connected. You will need to install/use a terminal emulator to connect to the board. (puTTY <http://www.putty.org/>`_ is free for Windows) 
+You will need to use a terminal emulator to connect to the board. (puTTY <http://www.putty.org/>`_ is available for free for Windows) 
 
    Terminal Settings:
 
@@ -213,7 +252,7 @@ There are also a number of example notebooks available showing how to use variou
    :scale: 75%
    :align: center
 
-When you open a notebook and make any changes, or execute cells, the notebook document will be modified. It is recommended that you "Save a copy" when you open a new notebook. Original copies of all the notebooks can be found on the `PYNQ GitHub page <www.github.com/xilinx/pynq>`_ .    
+When you open a notebook and make any changes, or execute cells, the notebook document will be modified. It is recommended that you "Save a copy" when you open a new notebook. If you want to restore the original versions, you can download all the example notebooks from the `PYNQ GitHub page <www.github.com/xilinx/pynq>`_ .    
    
 Accessing files on the board
 ----------------------------
@@ -246,10 +285,6 @@ The Samba username:password is ``xilinx:xilinx``
 
 
 Troubleshooting
---------------------
+==========================
+
 If you are having problems getting the board set up, please see the `Frequently asked questions <14_faqs.html>`_ or go the `PYNQ support forum <http://www.pynq.io>`_
-
-
-Change static IP `Appendix: Assign your PC/Laptop a static ip address <17_appendix.html#assign-your-laptop-pc-a-static-ip-address>`_
-
-Terminal `Frequently asked questions <14_faqs.html>`_  
