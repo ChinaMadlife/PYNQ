@@ -1,66 +1,68 @@
-Working with Overlays
+Creating Overlays
 ==============================================
 
-Creating overlays involves using traditional hardware design methods. This document will describe how overlays can be integrated into Pynq by FPGA/Zynq designers, but will not cover the hardware design process. 
+As described in the introduction section, overlays are analogous to software libraries. Overlays can be loaded into the Programmable Logic at runtime to support different functionality required by software (Python) applications. 
+Overlays are designed to be configurable, and reuseabe for different applications. In this way a relatively small number of overlays, and overlay designers can enable a larger community of programmers who will use the overlays. 
 
-While FPGA fabric can be customized to very specific and optimized implementations, a high level of expertise is required to do this, and is much more time consuming than creating software. 
+An overlay consists of two parts; the bitstream, to program the PL, and the overlay API. 
 
-One of the key concepts of Pynq Overlays, is that the Overlay should be designed to be flexible rather than highly customized. Flexibility allows an overlay to be used for many different applications, even if this results in a less optimal hardware implementation.
+Bitstream
+---------------------------
 
-For example, it is recommended that IOPs are used for Pmod interfaces to make the overlay as widely applicable as possible, even where the designer intends to use a specific peripheral for a particular application. This may result in a design that uses more FPGA resources than is necessary, but the flexibility of the overlay is of higher value than the overhead of the additional resources used. 
+Creating the programmable logic design is a specialised task for a hardware designer. Xilinx Vivado software is used to create the hardware design, and generate the bitstream (.bit file) that is used to program the Zynq PL.  
 
+A standard Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. PS configuration includes setting up system clocks, including the clocks used in the PL. The PYNQ image which is used to boot the board configures the Zynq PS. Overlays will be downloaded at runtime, after the PS has been configured. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
 
-Existing Overlays
------------------
+The following settings should be used for a new Vivado overlay project: 
 
-One overlay is currently included in the Pynq repository; *base*:
+Vivado Project settings:
+* Target device: xc7z020clg400-1
 
-   * ``<GitHub repository>/Pynq-Z1/vivado/base``
-  
-A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream for the overlay. However, the overlay has been precompiled, and is available in ``<GitHub Repository>/Pynq-Z1/bitstream/``.
+PL clock configuration:
 
-A full Vivado installation is required to design and build overlays. Building an existing overlay design allows the project to be opened in Vivado and examined, or modified to create a new overlay. 
+* FCLK_CLK0: 100.00MHz
+* FCLK_CLK1: 142.86MHz
+* FCLK_CLK2: 200.00MHz
+* FCLK_CLK3: 166.67MHz
 
-.. image:: ./images/vivado_base_overlay.JPG
-   :scale: 50%
-   :align: center
+The PYNQ-Z1 Master XDC (I/O constraints) are available at the Digilent PYNQ-Z1 resource site:
+https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start
+
+It is recommended to start with an existing overlay design to ensure the PS settings are correct. 
+
+The tcl for the VIvado block diagram should also be exported with the bitstream. This allows information about the overlay to be parsed into Python. See the next section for details on how to query the tcl file. 
+
+To generate the Block Diagram tcl in Vivado:
+
+File > Export > Block Design to export the tcl file to be included with the Overlay. 
+
+Or, run the following in the tcl console:
+
+   .. code-block::console
    
-Loading Overlays
-----------------
+      write_bd_tcl
+      
+The tcl filename should match the .bit filename. E.g. my_overlay.bit and my_overlay.tcl
 
-The FPGA fabric can be dynamically reconfigured with new overlays as the system is running. This allows Pynq to swap in and out different overlays to support different functionality required by software (Python) applications. 
+An error will be displayed if a tcl is not available when attempting to download an overlay, or if the tcl filename does not match the .bit file name.
 
-Loading overlays can be done in Python using the Overlay class, which is part of the Pynq package:
-
-   ``<GitHub Repository>/python/pynq/pl.py``
-   
-The Bitstream can then be downloaded from Python:
-
-
-.. code-block:: python
-
-   from pynq import Overlay
-   Overlay("base.bit").download()
-
-
-
-
-
-Using new overlays with MMIO
+Overlay tcl parsinng
 -----------------------------------
-Once a new overlay has been created, the overlay needs to be integrated into the Pynq environment.  It is recommended to use an existing Vivado *Overlay project* as a starting point for a new overlay. This will ensure the settings for the Zynq PS, and the existing PS/PL interfaces are used in the new project. 
 
-As with any application running on Zynq, the interface between the software and hardware is via the Zynq memory map. 
+The Overlay package has built in functions to find IPs of a specific overlay (e.g. `base.bit`): 
 
-To find the addressable IPs of a specific overlay (e.g. `base.bit`), users can do:
+This can be useful to reference an IP by name rather than by a hard coded address, or to check overlays for specific IPs. 
+
+To show the IP dictionary of the overlay, run the following:
 
 .. code-block:: python
 
    from pynq import Overlay
-   Overlay("base.bit").ip_dict
+   OL = Overlay("base.bit")
+   OL.ip_dict
 
 
-This will show the IP dictionary of the overlay. Each entry in this IP dictionary is a key-value pair. For example, an entry can be: 
+Note, that this queries the tcl that was used to built the design, not the overlay running in the PL. Each entry in this IP dictionary is a key-value pair. E.g.: 
 
     ``'SEG_mb_bram_ctrl_1_Mem0': ['0x40000000', '0x10000', None]``
 
@@ -70,20 +72,45 @@ The key of the entry is the IP instance name; all the IP instance names are pars
    - The second item shows the address range in bytes (hex).
    - The third item records the state associated with the IP. It is `None` by default, but can be used flexibly by the users.
 
-Similarly, to find the addressable IPs currently on the programmable logic, users can do:
+Similarly, the PL package can be used to find the addressable IPs currently in the programmable logic:
 
 .. code-block:: python
 
    from pynq import PL
    PL.ip_dict
 
-To help ease the effort to communicate between the ARM processor and programmable logic, Pynq includes the *MMIO* Python class. Once the overlay has been created, and the memory map is known, the *MMIO* can be used to read/write from/to memory mapped locations in the FPGA fabric. 
+
+Existing Overlays
+-----------------
+
+One overlay is currently included in the Pynq repository; *base*:
+
+   * ``<GitHub repository>/Pynq-Z1/vivado/base``
+  
+A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream for the overlay. The bitstream and tcl for the overlay are available on the board (base.bit is loaded by default when the board boots), and in the project repository ``<GitHub Repository>/Pynq-Z1/bitstream/``.
+
+Vivado must be installation to design and build overlays. Building an existing overlay design allows the project to be opened in Vivado and examined, or modified to create a new overlay. 
+
+.. image:: ./images/vivado_base_overlay.JPG
+   :scale: 50%
+   :align: center
+   
+
+
+   
+Interfacing to the overlay
+================================
+   
+MMIO
+------
+  
+PYNQ includes the *MMIO* Python class to simplify communication beween the Zynq PS and PL. Once the overlay has been created, and the memory map is known, the *MMIO* can be used to access memory mapped locations in the PL. 
 
 The Python code for the MMIO can be viewed here:
 
     ``<GitHub Repository>/python/pynq/mmio.py``
 
-Continuing the example shown above, we show a use case where the MMIO class can access an area of 0x10000 bytes in the FPFA fabric, starting at address 0x40000000 (`SEG_mb_bram_ctrl_1_Mem0`): 
+The MMIO class can access an area of memory in the PL by specifying the start address, and the range. E.g. The following code allows access to memory mapped locations in the PL from 0x40000000 to 0x40010000 (`SEG_mb_bram_ctrl_1_Mem0`): 
 
 .. code-block:: python
 
@@ -96,14 +123,132 @@ Continuing the example shown above, we show a use case where the MMIO class can 
    myip.read(0)
 
 
-In the example above, any accesses outside the address range 0x10000 (65535 bytes) will cause an error. When creating the python driver for a new hardware function, the MMIO can be wrapped inside a Python module. 
+In the example above, any accesses outside the address range 0x10000 (65535 bytes) will cause an error in the Python package. The designer must be careful to ensure that locations accessed from Python have something mapped in the PL. Remember that custom peripherals exist in the address space, and even if and address range is mapped by the MMIO, there may not be anything connected to specific addresses, or they may be read only or write only. Invalid accesses to the PL may cause system errors.
 
+When creating the python driver for a new hardware function, the MMIO can be wrapped inside a Python module. 
 
-New overlay example
--------------------------------------
-An example notebook ``overlay_integration.ipynb`` is available in the *Examples* folder, showing how to write Python to interface to an overlay. 
+CFFI
+----------
 
+C functions inside a shared library can be called from Python using the C Foreign Function Interface (CFFI).
 
+For more information on CFFI and shared libraries refer to:
+
+http://cffi.readthedocs.io/en/latest/overview.html
+
+http://www.tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
+  
+   
+To get examples on how to use CFFI, refer to the CMA class or the Audio class, both located in pynq/drivers.
+
+Memory Management
+---------------------
+
+The pynq package xlnk can allocate contiguous memory. Contiguous memory is required when using non-scatter-gather DMAs.
+
+Allocate ad free contiguous memory with 
+
+.. code-block:: python
+   cma_alloc()
+   cma_free()
+   
+   cma_stats() # Get the amount of contiguous free memoruy. 
+
+For more information on the xlnk class refer to the memory management example notebook.
+
+Packaging overlays
+====================
+
+An overlay, tcl, and Python can be placed anywhere in the filesystem, but this is not good practice. 
+
+The default location for the base PYNQ overlay and tcl is : 
+   
+   ``<GitHub Repository>/Pynq-Z1/bitstream``
+
+The PYNQ Python can be found here:
+
+   ``<GitHub Repository>/python/pynq``
+
+You can fork PYNQ from github, and add Python code to the PYNQ package. However, for custom overlays, you can create your own repository and package it to allow other users to install your overlay using pip.
+
+There are different ways to package a project for installation with pip. One example is provided below. 
+
+See pip install for more details, and more packaging options.
+https://pip.pypa.io/en/stable/reference/pip_install
+
+   
+The following example assume an overlay that exists in the root of a GitHub respoitory.
+
+Assume the repository has the following structure:
+
+An example project layout could be:
+   
+   * notebook/
+      * new_overlay.ipynb
+   * new_overlay/
+      * new_overlay.bit
+      * new_overlay.tcl
+      * __init.py
+      * new_overlay.py
+   readme.md
+   license   
+   
+   
+Add a setup.py to the root of your repository. This file will imports the necessary packages, and specifies some setup instructions for your package including the package name, version, url, and files to include. 
+
+Example setup.py : 
+
+.. code-block :: python
+
+   from setuptools import setup, find_packages
+   import subprocess
+   import sys
+   import shutil
+   import new_overlay
+
+   setup(
+       name = "new_overlay",
+       version = new_overlay.__version__,
+       url = 'https://github.com/your_github/new_overlay',
+       license = 'All rights reserved.',
+       author = "Your Name",
+       author_email = "your@email.com",
+       packages = ['new_overlay'],
+       package_data = {
+       '' : ['*.bit','*.tcl','*.py','*.so'],
+       },
+       description = "New custom overlay for PYNQ-Z1"
+   )
+
+**package_data** specifies which files will be installed as part of the package.
+   
+   
+From a terminal, the new package can be installed by running:
+
+.. code-block :: console
+
+   sudo pip install --upgrade 'git+https://github.com/your_github/new_overlay'
+   
+   
+   
+Using Overlays
+----------------
+
+The PL can be dynamically reconfigured with new overlays as the system is running. 
+
+Loading overlays can be done in Python using the Overlay class:
+
+   ``<GitHub Repository>/python/pynq/pl.py``
+   
+The Bitstream can then be downloaded from Python:
+
+.. code-block:: python
+
+   from pynq import Overlay
+   ol = Overlay("base.bit")
+   ol.download()
+
+   
 Using new overlays with GPIO
 -----------------------------------
 GPIO between the Zynq PS and PL can be used by Python code as a control interface to overlays.  The information about a GPIO is kept in the GPIO dictionary of an overlay. 
@@ -135,6 +280,5 @@ The following code can be used to get the dictionary for GPIO currently in the F
    from pynq import PL
    pl = PL
    pl.gpio_dict
-
 
 
