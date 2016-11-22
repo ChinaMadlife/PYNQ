@@ -1,13 +1,19 @@
+
 Creating Overlays
 ==============================================
 
-Introduction
---------------
-As described in the introduction section, overlays are analogous to software libraries. A programmer can download overlays into the Zynq PL at runtime to provide functionality  required by the software application. The overlay could consist of an interface that supports external peripherals, or an accelerator that could help speed up the software application running on the PS. 
+.. contents:: Table of Contents
+   :depth: 2
+   
+   
+Introduction to Overlays
+===========================
 
-A PYNQ overlay will have a Python interface, allowing a software programmer to use it like any other Python package. 
+As described in the PYNQ overview, overlays are analogous to software libraries. A programmer can download overlays into the Zynq PL at runtime to provide functionality  required by the software application. 
 
-Overlays are classes of Programmable Logic design. Programmable Logic designs are usually highly optimized for a specific task. Overlays however, are designed to be configurable, and reusabe for broad set of applications. While a programmer can use an overlay, creating an overlay is a specialised task for a hardware designer. 
+Overlays are classes of Programmable Logic design. Programmable Logic designs are usually highly optimized for a specific task. Overlays however, are designed to be configurable, and reusabe for broad set of applications. A PYNQ overlay will have a Python interface, allowing a software programmer to use it like any other Python package. 
+
+A programmer can use an overlay, but creating an overlay is a specialised task for a hardware designer. 
 
 This document will give an overview of the process of creating an overlay and integrating it into PYNQ, but will not cover the hardware design process in detail. 
 
@@ -20,16 +26,16 @@ An overlay consists of two main parts; the overlay Programmable Logic (PL) desig
 Xilinx Vivado software is used to create the hardware design, and generate the bitstream (.bit file) that is used to program the Zynq PL.  
 
 The free webpack version of Vivado supports the PYNQ-Z1 board, and can be used to create PYNQ overlays.
-
 https://www.xilinx.com/products/design-tools/vivado/vivado-webpack.html
 
-There are some differences between standard Zynq designs, and designing PYNQ overlays. A standard Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. The PS configuration includes settings for system clocks, including the clocks used in the PL. 
+There are some differences between the standard Zynq design process, and designing overlays for PYNQ. A standard Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. The PS configuration includes settings for system clocks, including the clocks used in the PL. 
 
 The PYNQ image which is used to boot the board configures the Zynq PS. Overlays will be downloaded at runtime, after the PS has been configured. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
 
 The following settings should be used for a new Vivado overlay project: 
 
 Vivado Project settings:
+
 * Target device: xc7z020clg400-1
 
 PL clock configuration:
@@ -43,6 +49,9 @@ The PYNQ-Z1 Master XDC (I/O constraints) are available at the Digilent PYNQ-Z1 r
 https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start
 
 It is recommended to start with an existing overlay design to ensure the PS settings are correct. 
+
+Block Diagram Tcl
+------------------
 
 The tcl for the Vivado block diagram should also be exported with the bitstream. This allows information about the overlay to be parsed into Python. See the next section for details on how to query the tcl file. 
 
@@ -60,11 +69,10 @@ The tcl filename should match the .bit filename. E.g. my_overlay.bit and my_over
 
 An error will be displayed if a tcl is not available when attempting to download an overlay, or if the tcl filename does not match the .bit file name.
 
-Overlay tcl
+The ip_dict() menthod
 -----------------------------------
 
-The Overlay package has a built in ip_dict() method to identify IPs in a specific overlay (e.g. `base.bit`): 
-
+The Overlay package has a built in ip_dict() method to get the names of IP in a specific overlay (e.g. `base.bit`): 
 
 To show the IP dictionary of the overlay, run the following:
 
@@ -74,7 +82,8 @@ To show the IP dictionary of the overlay, run the following:
    OL = Overlay("base.bit")
    OL.ip_dict
 
-Each entry in this IP dictionary that is returned is a key-value pair. 
+Each entry in this IP dictionary that is returned is a key-value pair.
+ 
 E.g.: 
 
     ``'SEG_mb_bram_ctrl_1_Mem0': ['0x40000000', '0x10000', None]``
@@ -100,13 +109,15 @@ The ip_dict() method can be useful to reference an IP by name in your Python cod
 
 
 Existing Overlays
------------------
+=========================
 
 One overlay is currently included in the Pynq repository; *base*:
 
    * ``<GitHub repository>/Pynq-Z1/vivado/base``
   
-A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream for the overlay. The bitstream and tcl for the overlay are available on the board (base.bit is loaded by default when the board boots), and in the project repository ``<GitHub Repository>/Pynq-Z1/bitstream/``.
+A makefile exists in each folder that can be used to rebuild the Vivado project and generate the bitstream for the overlay. The bitstream and tcl for the overlay are available on the board (base.bit is loaded by default when the board boots), and in the project repository: 
+
+   * ``<GitHub Repository>/Pynq-Z1/bitstream/``
 
 Vivado must be installation to design and build overlays. Building an existing overlay design allows the project to be opened in Vivado and examined, or modified to create a new overlay. 
 
@@ -195,12 +206,12 @@ There are different ways to package a project for installation with pip. One exa
 See pip install for more details, and more packaging options.
 https://pip.pypa.io/en/stable/reference/pip_install
 
-   
+Example
+--------
+
 The following example assume an overlay that exists in the root of a GitHub repository.
 
 Assume the repository has the following structure:
-
-An example project layout could be:
    
    * notebook/
       * new_overlay.ipynb
@@ -209,8 +220,8 @@ An example project layout could be:
       * new_overlay.tcl
       * __init.py
       * new_overlay.py
-   readme.md
-   license   
+   * readme.md
+   * license   
    
    
 Add a setup.py to the root of your repository. This file will imports the necessary packages, and specifies some setup instructions for your package including the package name, version, url, and files to include. 
@@ -251,7 +262,7 @@ From a terminal, the new package can be installed by running:
    
    
 Using Overlays
-----------------
+=================
 
 The PL can be dynamically reconfigured with new overlays as the system is running. 
 
