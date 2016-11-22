@@ -94,11 +94,13 @@ Connecting to a network with internet access allows you to update your board and
 | router/switch                          |
 +----------------------------------------+
 | 2. Browse to http://pynq:9090          |
+|                                        |
 +----------------------------------------+
 | 3. Optional: Change hostname (if more  |
 | than one board on network)\*           |
 +----------------------------------------+
 | 4. Optional: Configure proxy\*         |
+|                                        |
 +----------------------------------------+
 
 \* This can be done after the board is powered on. See below for instructions
@@ -189,7 +191,7 @@ Connect to terminal using USB
 
 If you need to change settings on the board but you can't access the terminal from Jupyter, you can use connect a terminal using the micro USB cable already connected to the board. 
 
-You will need to use a terminal emulator to connect to the board. (PuTTY <http://www.putty.org/>`_ is available for free for Windows. You will need to find the COM port for the board. On Windows, you can find this in the device manager under *Ports*. 
+You will need to use a terminal emulator to connect to the board. `PuTTY <http://www.putty.org/>`_ is available for free for Windows. You will need to find the COM port for the board. On Windows, you can find this in the device manager under *Ports*. 
 
 In PuTTY:
 
