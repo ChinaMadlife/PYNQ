@@ -1,17 +1,31 @@
 Creating Overlays
 ==============================================
 
-As described in the introduction section, overlays are analogous to software libraries. Overlays can be loaded into the Programmable Logic at runtime to support different functionality required by software (Python) applications. 
-Overlays are designed to be configurable, and reuseabe for different applications. In this way a relatively small number of overlays, and overlay designers can enable a larger community of programmers who will use the overlays. 
+Introduction
+--------------
+As described in the introduction section, overlays are analogous to software libraries. A programmer can download overlays into the Zynq PL at runtime to provide functionality  required by the software application. The overlay could consist of an interface that supports external peripherals, or an accelerator that could help speed up the software application running on the PS. 
 
-An overlay consists of two parts; the bitstream, to program the PL, and the overlay API. 
+A PYNQ overlay will have a Python interface, allowing a software programmer to use it like any other Python package. 
 
-Bitstream
+Overlays are classes of Programmable Logic design. Programmable Logic designs are usually highly optimized for a specific task. Overlays however, are designed to be configurable, and reusabe for broad set of applications. While a programmer can use an overlay, creating an overlay is a specialised task for a hardware designer. 
+
+This document will give an overview of the process of creating an overlay and integrating it into PYNQ, but will not cover the hardware design process in detail. 
+
+
+Programmable Logic
 ---------------------------
 
-Creating the programmable logic design is a specialised task for a hardware designer. Xilinx Vivado software is used to create the hardware design, and generate the bitstream (.bit file) that is used to program the Zynq PL.  
+An overlay consists of two main parts; the overlay Programmable Logic (PL) design, and the Python API. 
 
-A standard Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. PS configuration includes setting up system clocks, including the clocks used in the PL. The PYNQ image which is used to boot the board configures the Zynq PS. Overlays will be downloaded at runtime, after the PS has been configured. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
+Xilinx Vivado software is used to create the hardware design, and generate the bitstream (.bit file) that is used to program the Zynq PL.  
+
+The free webpack version of Vivado supports the PYNQ-Z1 board, and can be used to create PYNQ overlays.
+
+https://www.xilinx.com/products/design-tools/vivado/vivado-webpack.html
+
+There are some differences between standard Zynq designs, and designing PYNQ overlays. A standard Vivado project for a Zynq design consists of two parts; the PL design, and the PS configuration settings. The PS configuration includes settings for system clocks, including the clocks used in the PL. 
+
+The PYNQ image which is used to boot the board configures the Zynq PS. Overlays will be downloaded at runtime, after the PS has been configured. This means that overlay designers should ensure the PS settings in their Vivado project match the PYNQ image settings. 
 
 The following settings should be used for a new Vivado overlay project: 
 
@@ -30,7 +44,7 @@ https://reference.digilentinc.com/reference/programmable-logic/pynq-z1/start
 
 It is recommended to start with an existing overlay design to ensure the PS settings are correct. 
 
-The tcl for the VIvado block diagram should also be exported with the bitstream. This allows information about the overlay to be parsed into Python. See the next section for details on how to query the tcl file. 
+The tcl for the Vivado block diagram should also be exported with the bitstream. This allows information about the overlay to be parsed into Python. See the next section for details on how to query the tcl file. 
 
 To generate the Block Diagram tcl in Vivado:
 
@@ -46,12 +60,11 @@ The tcl filename should match the .bit filename. E.g. my_overlay.bit and my_over
 
 An error will be displayed if a tcl is not available when attempting to download an overlay, or if the tcl filename does not match the .bit file name.
 
-Overlay tcl parsinng
+Overlay tcl
 -----------------------------------
 
-The Overlay package has built in functions to find IPs of a specific overlay (e.g. `base.bit`): 
+The Overlay package has a built in ip_dict() method to identify IPs in a specific overlay (e.g. `base.bit`): 
 
-This can be useful to reference an IP by name rather than by a hard coded address, or to check overlays for specific IPs. 
 
 To show the IP dictionary of the overlay, run the following:
 
@@ -61,23 +74,29 @@ To show the IP dictionary of the overlay, run the following:
    OL = Overlay("base.bit")
    OL.ip_dict
 
-
-Note, that this queries the tcl that was used to built the design, not the overlay running in the PL. Each entry in this IP dictionary is a key-value pair. E.g.: 
+Each entry in this IP dictionary that is returned is a key-value pair. 
+E.g.: 
 
     ``'SEG_mb_bram_ctrl_1_Mem0': ['0x40000000', '0x10000', None]``
 
+Note, that this queries the tcl that was used to built the design, not the overlay running in the PL. 
+    
 The key of the entry is the IP instance name; all the IP instance names are parsed from the `*.tcl` file (e.g. `base.tcl`) in the address segment section. The value of the entry is a list of 3 items:
 
    - The first item shows the base address of the addressable IP (hex).
    - The second item shows the address range in bytes (hex).
    - The third item records the state associated with the IP. It is `None` by default, but can be used flexibly by the users.
 
+
+   
 Similarly, the PL package can be used to find the addressable IPs currently in the programmable logic:
 
 .. code-block:: python
 
    from pynq import PL
    PL.ip_dict
+
+The ip_dict() method can be useful to reference an IP by name in your Python code, rather than by a hard coded address, or to check overlays for specific IPs. 
 
 
 Existing Overlays
@@ -152,7 +171,7 @@ Allocate ad free contiguous memory with
    cma_alloc()
    cma_free()
    
-   cma_stats() # Get the amount of contiguous free memoruy. 
+   cma_stats() # Get the amount of contiguous free memory. 
 
 For more information on the xlnk class refer to the memory management example notebook.
 
@@ -177,7 +196,7 @@ See pip install for more details, and more packaging options.
 https://pip.pypa.io/en/stable/reference/pip_install
 
    
-The following example assume an overlay that exists in the root of a GitHub respoitory.
+The following example assume an overlay that exists in the root of a GitHub repository.
 
 Assume the repository has the following structure:
 
@@ -240,7 +259,7 @@ Loading overlays can be done in Python using the Overlay class:
 
    ``<GitHub Repository>/python/pynq/pl.py``
    
-The Bitstream can then be downloaded from Python:
+The bitstream can then be downloaded from Python:
 
 .. code-block:: python
 
